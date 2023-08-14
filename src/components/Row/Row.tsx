@@ -3,7 +3,7 @@ import Thumbnail from "../thumbnail/thumbnail";
 import { RowProps } from "./row.props";
 import { BsChevronDoubleRight, BsChevronDoubleLeft } from "react-icons/bs";
 
-const Row = ({ title, movies }: RowProps) => {
+const Row = ({ title, movies, isBig = false,  }: RowProps) => {
   const [moved, setMoved] = useState<boolean>(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -29,7 +29,11 @@ const Row = ({ title, movies }: RowProps) => {
       <h1 className="w-56 cursor-pointer text-sm md:text-2xl font-semibold text-[#e5e5e5] hover:text-white transition duration-200">
         {title}
       </h1>
+
       {/* Coursel */}
+
+      {/* ----------------------------------------------- */}
+
       <div className="group relative md:ml-2">
         <BsChevronDoubleLeft
           onClick={() => handleClick("left")}
@@ -37,13 +41,17 @@ const Row = ({ title, movies }: RowProps) => {
             !moved && "hidden"
           }`}
         />
+
         {/* thumbnail */}
+
+        {/* --------------------------------------------------------------------------- */}
+
         <div
           ref={carouselRef}
-          className="flex items-center scrollbar-hide space-x-4 overflow-x-scroll md:space-x-6`"
+          className={`flex items-center scrollbar-hide ${!isBig && "space-x-4 md:space-x-6"} overflow-x-scroll `}
         >
           {movies.map((movie) => (
-            <Thumbnail key={movie.id} movie={movie} />
+            <Thumbnail key={movie.id} movie={movie} isBig={isBig} />
           ))}
         </div>
         <BsChevronDoubleRight
