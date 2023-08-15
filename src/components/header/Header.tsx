@@ -29,7 +29,7 @@ const Header = () => {
           alt={"logo"}
           width={56}
           height={56}
-          className="cursor-pointer"
+          className="object-contain cursor-pointer"
         />
         <ul className="space-x-4 md:flex hidden">
           <li className="navLink">Home</li>
