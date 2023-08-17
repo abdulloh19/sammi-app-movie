@@ -1,19 +1,25 @@
 import { TextField } from "@/components";
 import Head from "next/head";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
+import { AuthContext } from "@/Context/auth.context";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
+  const { signIn, signUp, logOut, error, isLoading } = useContext(AuthContext);
 
   const toggleAuth = (state: "signup" | "signin") => {
     setAuth(state);
   };
 
   const onsubmit = (formData: { email: string; password: string }) => {
-    console.log(formData);
+    if (auth === "signup") {
+      signUp(formData.email, formData.password);
+    } else {
+      signIn(formData.email, formData.password);
+    }
   };
 
   const validation = Yup.object({
@@ -59,25 +65,24 @@ const auth = () => {
           <h1 className="text-2xl font-semibold">
             {auth === "signup" ? "Sign Up" : "Sign In"}
           </h1>
+          {error && (
+            <p className="text-red-500 font-semibold text-center">{error}</p>
+          )}
           <div className="space-y-2">
             <TextField name="email" placeholder="Email" type="text" />
             <TextField name="password" placeholder="Password" type="password" />
           </div>
-          {auth === "signin" ? (
-            <button
-              type="submit"
-              className="w-full font-semibold rounded hover:bg-[#f4357b] bg-[#E10856] py-3 mt-3"
-            >
-              Sign In
-            </button>
-          ) : (
-            <button
-              type="submit"
-              className="w-full font-semibold rounded hover:bg-[#f4357b] bg-[#E10856] py-3 mt-3"
-            >
-              Sign Up
-            </button>
-          )}
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full font-semibold rounded hover:bg-[#f4357b] bg-[#E10856] py-3 mt-3"
+          >
+            {isLoading
+              ? "Loading..."
+              : auth === "signin"
+              ? "Sign In"
+              : "Sign Up"}
+          </button>
           {auth === "signin" ? (
             <div className="text-[gray]">
               Not yet Account?
