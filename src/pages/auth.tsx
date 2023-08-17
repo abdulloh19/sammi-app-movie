@@ -5,10 +5,15 @@ import { useState, useContext } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "@/Context/auth.context";
+import { useRouter } from "next/router";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
-  const { signIn, signUp, logOut, error, isLoading } = useContext(AuthContext);
+  const { signIn, signUp, user, error, isLoading } = useContext(AuthContext);
+  const router = useRouter();
+
+  if(user) router.push('/')
+  if (isLoading) return <>{null}</>;
 
   const toggleAuth = (state: "signup" | "signin") => {
     setAuth(state);

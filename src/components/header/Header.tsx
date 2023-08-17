@@ -1,12 +1,15 @@
 import Image from "next/image";
 import { BsSearch } from "react-icons/bs";
 import { BiBellMinus } from "react-icons/bi";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "@/Context/auth.context";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const { logOut } = useContext(AuthContext);
+
 
   useEffect(() => {
     const handlerScroll = () => {
@@ -15,14 +18,13 @@ const Header = () => {
       } else {
         setScrolled(false);
       }
-
     };
-    window.addEventListener('scroll', handlerScroll)
+    window.addEventListener("scroll", handlerScroll);
 
-    return () => removeEventListener('scroll', handlerScroll)
+    return () => removeEventListener("scroll", handlerScroll);
   }, []);
   return (
-    <header className={`${scrolled && 'bg-[#E10856]'}`}>
+    <header className={`${scrolled && "bg-[#E10856]"}`}>
       <div className="flex items-center space-x-2">
         <Image
           src={"/logo.svg"}
@@ -46,6 +48,7 @@ const Header = () => {
         <Link href={"/Account"}>
           <AiOutlineUser className="h-6 w-6 cursor-pointer" />
         </Link>
+        <AiOutlineLogout className="h-6 w-6 cursor-pointer" onClick={logOut} />
       </div>
     </header>
   );

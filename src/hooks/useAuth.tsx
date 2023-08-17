@@ -2,7 +2,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  onAuthStateChanged,
   User,
 } from "firebase/auth";
 import { useRouter } from "next/router";
@@ -58,6 +57,7 @@ export const useAuth = () => {
     error,
     isLoading,
     user,
+    setUser,
+    setIsLoading,
   };
 };
-
