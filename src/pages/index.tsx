@@ -5,6 +5,7 @@ import { API_REQUEST } from "@/services/api.service";
 import { IMovie } from "@/interfaces/app.interface";
 import { AuthContext } from "@/Context/auth.context";
 import { useContext } from "react";
+import { UseInfoStore } from "src/store";
 
 export default function Home({
   trending,
@@ -16,9 +17,11 @@ export default function Home({
   comedy,
   history,
 }: HomeProps): JSX.Element {
+  const { modal, setModal } = UseInfoStore();
   const { isLoading } = useContext(AuthContext);
 
   if (isLoading) return <>{null}</>;
+
 
   return (
     <div className="relative min-h-screen">
