@@ -15,5 +15,9 @@ export interface IMovie {
   vote_average: number;
   vote_count: number;
   original_name: string;
-  name: string
+  name: string;
+}
+
+export interface Element {
+  type: "Trailer" | "Clip" | "Featurette" | "Teaser";
 }

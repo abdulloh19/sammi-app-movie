@@ -10,4 +10,5 @@ export const API_REQUEST = {
   comedy: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genre=35`,
   fantasy: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genre=14`,
   history: `${base_url}/discover/movie?api_key=${api_key}&language=en-US&with_genre=36`,
+  videos: `${base_url}/movie/videos?api_key=${api_key}&language=en-US`,
 };
