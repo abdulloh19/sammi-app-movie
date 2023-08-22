@@ -7,12 +7,14 @@ import { BiPlus } from "react-icons/bi";
 import { BsFillVolumeUpFill, BsVolumeMuteFill } from "react-icons/bs";
 import { TiTimes } from "react-icons/ti";
 import ReactPlayer from "react-player";
+import { FaPlay, FaPause } from "react-icons/fa";
 
 const Modal = () => {
   const [trailer, setTrailer] = useState<string>("");
   const { modal, setModal, CurrentMovie } = UseInfoStore();
   const [muted, setMuted] = useState<boolean>(true);
   const [like, setLike] = useState<boolean>(false);
+  const [play, setPlay] = useState<boolean>(false);
 
   const base_url: string = process.env.NEXT_PUBLIC_API_DOMAIN as string;
   const api_key: string = process.env.NEXT_PUBLIC_API_KEY as string;
@@ -58,14 +60,25 @@ const Modal = () => {
             url={`https://www.youtube.com/watch?v=${trailer}`}
             width={"100%"}
             height={"100%"}
-            playing
             style={{ top: 0, left: 0, position: "absolute" }}
             muted={muted}
+            playing={play}
           />
           <div className="absolute bottom-10 flex w-full items-center justify-between px-20">
             <div className="flex space-x-2">
-              <button className="flex items-center gap-x-2 rounded bg-white px-10 py-2 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
-                Play
+              <button
+                onClick={() => setPlay((p) => !p)}
+                className="flex items-center gap-x-2 rounded bg-white px-10 py-2 text-xl font-bold text-black transition hover:bg-[#e6e6e6]"
+              >
+                {play ? (
+                  <>
+                    <FaPause /> Pause
+                  </>
+                ) : (
+                  <>
+                    <FaPlay /> Play
+                  </>
+                )}
               </button>
 
               <button className="modalButton">

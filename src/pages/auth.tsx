@@ -6,10 +6,11 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { AuthContext } from "@/Context/auth.context";
 import { useRouter } from "next/router";
+import { useAuth } from "@/hooks/useAuth";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
-  const { signIn, signUp, user, error, isLoading } = useContext(AuthContext);
+  const { signIn, signUp, user, error, isLoading } = useAuth()
   const router = useRouter();
 
   if(user) router.push('/')

@@ -10,7 +10,6 @@ const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const { logOut } = useContext(AuthContext);
 
-
   useEffect(() => {
     const handlerScroll = () => {
       if (window.scrollY > 0) {
@@ -24,7 +23,7 @@ const Header = () => {
     return () => removeEventListener("scroll", handlerScroll);
   }, []);
   return (
-    <header className={`${scrolled && "bg-[#E10856]"}`}>
+    <header className={`${scrolled && "bg-[#141414]"} transition-all`}>
       <div className="flex items-center space-x-2">
         <Image
           src={"/logo.svg"}

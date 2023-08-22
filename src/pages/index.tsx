@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Header, Hero, Modal, Row } from "@/components";
+import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "@/services/api.service";
 import { IMovie } from "@/interfaces/app.interface";
@@ -20,8 +20,11 @@ export default function Home({
 HomeProps): JSX.Element {
   const { modal } = UseInfoStore();
   const { isLoading } = useContext(AuthContext);
+  const subsciptionPlan = false;
 
   if (isLoading) return <>{null}</>;
+
+  if (!subsciptionPlan) return <SubscriptionPlan />;
 
   return (
     <div
