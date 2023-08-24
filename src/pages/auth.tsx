@@ -1,10 +1,9 @@
 import { TextField } from "@/components";
 import Head from "next/head";
 import Image from "next/image";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { AuthContext } from "@/Context/auth.context";
 import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/useAuth";
 
