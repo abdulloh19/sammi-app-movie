@@ -1,6 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import { AiOutlineVideoCameraAdd } from "react-icons/ai";
+import { AiOutlineLogout, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { RiVipDiamondLine, RiHourglass2Line } from "react-icons/ri";
 import { SubscriptionPlanProps } from "./Subscription-plan.props";
 import PlanCard from "../planCard/PlanCard";
@@ -18,7 +18,7 @@ const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
           className="object-contain cursor-pointer"
         />
         <div onClick={logOut} className="cursor-pointer hover:underline">
-          Logout
+          <AiOutlineLogout onClick={logOut} className="w-6 h-6" />
         </div>
       </div>
       <div className="flex flex-col space-y-4 text-center pt-3">
@@ -32,9 +32,7 @@ const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
       <div className="flex justify-center items-center py-20">
         <div className="md:px-4 md:grid md:grid-cols-2 lg:grid-cols-3 gap-5 space-y-4 md:space-y-0">
           {products
-            .map((product) => (
-             <PlanCard key={product.id} product={product}/>
-            ))
+            .map((product) => <PlanCard key={product.id} product={product} />)
             .reverse()}
         </div>
       </div>

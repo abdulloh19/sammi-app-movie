@@ -10,18 +10,25 @@ import { useAuth } from "@/hooks/useAuth";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
-  const { signIn, signUp, user, error, isLoading } = useAuth()
+  const { signIn, signUp, user, error, isLoading, setIsLoading } = useAuth();
   const router = useRouter();
 
-  if(user) router.push('/')
+  if (user) router.push("/");
   if (isLoading) return <>{null}</>;
 
   const toggleAuth = (state: "signup" | "signin") => {
     setAuth(state);
   };
 
-  const onsubmit = (formData: { email: string; password: string }) => {
+  const onsubmit = async (formData: { email: string; password: string }) => {
     if (auth === "signup") {
+      setIsLoading(true);
+      const response = await fetch("/api/customer", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: formData.email }),
+      });
+      await response.json();
       signUp(formData.email, formData.password);
     } else {
       signIn(formData.email, formData.password);
@@ -61,7 +68,6 @@ const auth = () => {
         height={70}
         className="absolute top-4 left-4 object-contain cursor-pointer"
       />
-      {/* <div className="relative space-y-10 mt-24 rounded bg-black/75 py-10 px-6 md:mt-0 md:max-w-md md:px-14"> */}
       <Formik
         initialValues={{ email: "", password: "" }}
         onSubmit={onsubmit}
