@@ -2,7 +2,7 @@ import Head from "next/head";
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "@/services/api.service";
-import { IMovie } from "@/interfaces/app.interface";
+import { IMovie, Product } from "@/interfaces/app.interface";
 import { AuthContext } from "@/Context/auth.context";
 import { useContext } from "react";
 import { UseInfoStore } from "src/store";
@@ -16,15 +16,17 @@ export default function Home({
   fantasy,
   comedy,
   history,
-}: // videos
-HomeProps): JSX.Element {
+  products,
+}: HomeProps): JSX.Element {
   const { modal } = UseInfoStore();
   const { isLoading } = useContext(AuthContext);
   const subsciptionPlan = false;
 
+  console.log(products);
+
   if (isLoading) return <>{null}</>;
 
-  if (!subsciptionPlan) return <SubscriptionPlan />;
+  if (!subsciptionPlan) return <SubscriptionPlan products={products} />;
 
   return (
     <div
@@ -69,7 +71,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     comedy,
     fantasy,
     history,
-    // videos
+    products,
   ] = await Promise.all([
     fetch(API_REQUEST.trending).then((res) => res.json()),
     fetch(API_REQUEST.top_rated).then((res) => res.json()),
@@ -79,7 +81,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
     fetch(API_REQUEST.comedy).then((res) => res.json()),
     fetch(API_REQUEST.fantasy).then((res) => res.json()),
     fetch(API_REQUEST.history).then((res) => res.json()),
-    // fetch(API_REQUEST.videos).then(res => res.json())
+    fetch(API_REQUEST.product_list).then((res) => res.json()),
   ]);
 
   return {
@@ -92,7 +94,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async () => {
       comedy: comedy.results,
       fantasy: fantasy.results,
       history: history.results,
-      // videos: videos.results
+      products: products.products.data,
     },
   };
 };
@@ -106,5 +108,5 @@ interface HomeProps {
   comedy: IMovie[];
   fantasy: IMovie[];
   history: IMovie[];
-  // videos: IMovie[]
+  products: Product[];
 }
