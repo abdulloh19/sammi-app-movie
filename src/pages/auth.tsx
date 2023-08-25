@@ -6,6 +6,7 @@ import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/useAuth";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
@@ -21,13 +22,6 @@ const auth = () => {
 
   const onsubmit = async (formData: { email: string; password: string }) => {
     if (auth === "signup") {
-      setIsLoading(true);
-      const response = await fetch("/api/customer", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: formData.email }),
-      });
-      await response.json();
       signUp(formData.email, formData.password);
     } else {
       signIn(formData.email, formData.password);
@@ -88,11 +82,16 @@ const auth = () => {
             disabled={isLoading}
             className="w-full font-semibold rounded hover:bg-[#f4357b] bg-[#E10856] py-3 mt-3"
           >
-            {isLoading
-              ? "Loading..."
-              : auth === "signin"
-              ? "Sign In"
-              : "Sign Up"}
+            {isLoading ? (
+              <div className="flex justify-center items-center">
+                <AiOutlineLoading3Quarters className="mx-2 transition-all animate-spin" />{" "}
+                Loading...
+              </div>
+            ) : auth === "signin" ? (
+              "Sign In"
+            ) : (
+              "Sign Up"
+            )}
           </button>
           {auth === "signin" ? (
             <div className="text-[gray]">

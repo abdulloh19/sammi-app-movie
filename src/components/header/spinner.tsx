@@ -5,7 +5,7 @@ const Spinner = () => {
   return (
     <div className="flex justify-center text-white bg-white/30 items-center mt-64">
       <Image
-        className="animate-spin"
+        className="animate-spin text-white"
         src={"/spin.svg"}
         width={100}
         height={100}

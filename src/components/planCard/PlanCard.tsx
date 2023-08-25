@@ -1,6 +1,6 @@
 import { RiHourglass2Line, RiVipDiamondLine } from "react-icons/ri";
 import { PlanCardProps } from "./planCard.props";
-import { AiOutlineVideoCameraAdd } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineVideoCameraAdd } from "react-icons/ai";
 import { useState, useContext } from "react";
 import { AuthContext } from "@/Context/auth.context";
 
@@ -48,7 +48,10 @@ const PlanCard = ({ product }: PlanCardProps) => {
         className="mt-4 font-semibold w-full rounded bg-[#E10856] py-4 hover:opacity-70 transition-all"
         disabled={isLoading}
       >
-        {isLoading ? 'Loading...' : 'BUY PLAN'}
+        {isLoading ? <div className="flex justify-center items-center">
+                <AiOutlineLoading3Quarters className="mx-2 transition-all animate-spin" />{" "}
+                Loading...
+              </div> : 'BUY PLAN'}
       </button>
       <div className="my-4 flex flex-col space-y-3">
         {product.metadata.adv.split(", ").map((c, id) => (

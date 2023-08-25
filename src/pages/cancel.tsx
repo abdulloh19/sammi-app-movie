@@ -2,6 +2,7 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { BiErrorAlt } from "react-icons/bi";
 import Link from "next/link";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Cancel = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,7 +26,10 @@ const Cancel = () => {
             disabled={isLoading}
             className="bg-[#E10856] py-3 px-5 mt-5 rounded text-2xl"
           >
-            {isLoading ? "Loading..." : "Choose plan"}
+            {isLoading ? <div className="flex justify-center items-center">
+                <AiOutlineLoading3Quarters className="mx-2 transition-all animate-spin" />{" "}
+                Loading...
+              </div> : "Choose plan"}
           </button>
         </Link>
       </div>

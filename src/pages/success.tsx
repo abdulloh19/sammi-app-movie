@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import Link from "next/link";
-import { AiOutlineCheckCircle } from "react-icons/ai";
+import { AiOutlineCheckCircle, AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Success = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -25,7 +25,10 @@ const Success = () => {
             disabled={isLoading}
             className="bg-green-500 py-3 px-5 mt-5 rounded text-2xl"
           >
-            {isLoading ? "Loading..." : "Dashboard"}
+            {isLoading ? <div className="flex justify-center items-center">
+                <AiOutlineLoading3Quarters className="mx-2 transition-all animate-spin" />{" "}
+                Loading...
+              </div> : "Dashboard"}
           </button>
         </Link>
       </div>

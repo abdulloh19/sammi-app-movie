@@ -1,7 +1,6 @@
 import { useAuth } from "@/hooks/useAuth";
 import Image from "next/image";
-import { AiOutlineLogout, AiOutlineVideoCameraAdd } from "react-icons/ai";
-import { RiVipDiamondLine, RiHourglass2Line } from "react-icons/ri";
+import { AiOutlineLogout } from "react-icons/ai";
 import { SubscriptionPlanProps } from "./Subscription-plan.props";
 import PlanCard from "../planCard/PlanCard";
 
