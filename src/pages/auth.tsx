@@ -4,17 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { useRouter } from "next/router";
 import { useAuth } from "@/hooks/useAuth";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { GetServerSideProps } from "next";
 
 const auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
   const { signIn, signUp, user, error, isLoading, setIsLoading } = useAuth();
-  const router = useRouter();
-
-  if (user) router.push("/");
-  // if (isLoading) return <>{null}</>;
 
   const toggleAuth = (state: "signup" | "signin") => {
     setAuth(state);
@@ -125,3 +121,15 @@ const auth = () => {
 };
 
 export default auth;
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const user_id = req.cookies.user_id;
+  if (user_id) {
+    return {
+      redirect: { destination: "/", permanent: false },
+    };
+  }
+  return {
+    props: {},
+  };
+};

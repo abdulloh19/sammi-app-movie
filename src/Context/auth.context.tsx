@@ -2,7 +2,6 @@ import Spinner from "@/components/header/spinner";
 import { auth } from "@/firebase";
 import { useAuth } from "@/hooks/useAuth";
 import { User, onAuthStateChanged } from "firebase/auth";
-import { useRouter } from "next/router";
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
 interface AuthContextState {
@@ -35,7 +34,6 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     setUser,
     setIsLoading,
   } = useAuth();
-  const router = useRouter();
   const value = useMemo(
     () => ({
       signIn,
@@ -53,12 +51,9 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
         if (user) {
           //Ro'yxatdan o'tgan
           setUser(user);
-          setIsLoading(false);
         } else {
           // Ro'yxatdan o'tmagan
           setUser(null);
-          setIsLoading(true);
-          router.push("/auth");
         }
         setIsLoading(false);
         setInitialLoader(false);

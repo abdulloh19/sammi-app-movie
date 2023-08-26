@@ -26,7 +26,10 @@ export const useAuth = () => {
         fetch("/api/customer", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: res.user.email, user_id: res.user.uid }),
+          body: JSON.stringify({
+            email: res.user.email,
+            user_id: res.user.uid,
+          }),
         });
         Cookies.set("user_id", res.user.uid);
         setIsLoading(true);
@@ -54,8 +57,9 @@ export const useAuth = () => {
 
     signOut(auth)
       .then(() => {
-        setUser(null);
         Cookies.remove("user_id");
+        setUser(null);
+        router.push("/auth");
       })
       .catch((error) => setError(error.message))
       .finally(() => setIsLoading(false));
