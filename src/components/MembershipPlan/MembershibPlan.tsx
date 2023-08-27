@@ -40,6 +40,7 @@ const MembershpPlan = ({ subscription }: MembershibPlanPorps) => {
     window.open(data.portal);
     setLoading(false);
   };
+
   const openPortal3 = async () => {
     setcancelLoading(true);
     const payload = { user_id: subscription.customer.metadata.user_id };
@@ -78,7 +79,7 @@ const MembershpPlan = ({ subscription }: MembershibPlanPorps) => {
       <div className="col-span-3">
         <div className="flex flex-col justify-between border-b border-white/10  py-4 md:flex-row">
           <div>
-            <p className="font-medium">{subscription.customer.email}</p>
+            <span className="font-medium">{subscription.customer.email}</span>
             <p className="text-[gray]">Password: ******</p>
           </div>
           <div className="md:text-right">
@@ -103,15 +104,15 @@ const MembershpPlan = ({ subscription }: MembershibPlanPorps) => {
           <div>
             <div className="flex items-center gap-2">
               <span className="py-2 px-3 uppercase rounded bg-white/20">
-                {
-                  subscription.customer.invoice_settings.default_payment_method
-                    .card.brand
-                }{" "}
+                {subscription.default_payment_method
+                  ? subscription.default_payment_method.card.brand
+                  : subscription.customer.invoice_settings
+                      .default_payment_method.card.brand}{" "}
                 **** **** ****{" "}
-                {
-                  subscription.customer.invoice_settings.default_payment_method
-                    .card.last4
-                }
+                {subscription.default_payment_method
+                  ? subscription.default_payment_method.card.last4
+                  : subscription.customer.invoice_settings
+                      .default_payment_method.card.last4}
               </span>
             </div>
             <p className="mt-4">

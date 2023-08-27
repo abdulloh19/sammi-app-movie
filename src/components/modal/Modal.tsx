@@ -94,17 +94,17 @@ const Modal = () => {
                   <AiOutlineLike className="w-7 h-7" />
                 )}
               </button>
-              <button
-                className="modalButton"
-                onClick={() => setMuted((prev) => !prev)}
-              >
-                {muted ? (
-                  <BsVolumeMuteFill className="w-7 h-7" />
-                ) : (
-                  <BsFillVolumeUpFill className="w-7 h-7" />
-                )}
-              </button>
             </div>
+            <button
+              className="modalButton"
+              onClick={() => setMuted((prev) => !prev)}
+            >
+              {muted ? (
+                <BsVolumeMuteFill className="w-7 h-7" />
+              ) : (
+                <BsFillVolumeUpFill className="w-7 h-7" />
+              )}
+            </button>
           </div>
         </div>
         .

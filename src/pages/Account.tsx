@@ -9,9 +9,11 @@ import Link from "next/link";
 import { AiOutlineLoading3Quarters, AiOutlineUser } from "react-icons/ai";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 const Account = ({ subscription }: AccountProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { logOut } = useAuth();
 
   const OpenPortal = async () => {
     setIsLoading(true);
@@ -28,7 +30,6 @@ const Account = ({ subscription }: AccountProps) => {
     window.open(data.portal);
     setIsLoading(false);
   };
-  console.log(subscription);
 
   return (
     <>
@@ -51,7 +52,7 @@ const Account = ({ subscription }: AccountProps) => {
           </Link>
         </div>
         <div className="flex items-center space-x-4 text-sm font-light">
-          <Link href={"/Account"}>
+          <Link href={"/account"}>
             <AiOutlineUser className="h-6 w-6 cursor-pointer" />
           </Link>
         </div>
@@ -96,7 +97,10 @@ const Account = ({ subscription }: AccountProps) => {
         </div>
         <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4  md:border-t md:border-b-0  md:pb-0">
           <h4 className="text-lg text-[gray]">Plan Details</h4>
-          <p className="col-span-3 text-blue-500 hover:underline cursor-pointer">
+          <p
+            onClick={logOut}
+            className="col-span-3 text-blue-500 hover:underline cursor-pointer"
+          >
             Sign out of all devices
           </p>
         </div>
@@ -121,13 +125,13 @@ export const getServerSideProps: GetServerSideProps<AccountProps> = async ({
     `${API_REQUEST.subscription}/${user_id}`
   ).then((res) => res.json());
 
-  if(!subscription.subscription.data.length) {
+  if (!subscription.subscription.data.length) {
     return {
       redirect: {
-        destination: '/',
-        permanent: false
-      }
-    }
+        destination: "/",
+        permanent: false,
+      },
+    };
   }
 
   return {
