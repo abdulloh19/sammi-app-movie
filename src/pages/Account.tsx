@@ -6,10 +6,28 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { AiOutlineUser } from "react-icons/ai";
+import { AiOutlineLoading3Quarters, AiOutlineUser } from "react-icons/ai";
 import { MdOutlineSubscriptions } from "react-icons/md";
+import { useState } from "react";
 
 const Account = ({ subscription }: AccountProps) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const OpenPortal = async () => {
+    setIsLoading(true);
+    const payload = { user_id: subscription.customer.metadata.user_id };
+
+    const response = await fetch("/api/subscription/manage", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    window.open(data.portal);
+    setIsLoading(false);
+  };
   console.log(subscription);
 
   return (
@@ -60,9 +78,21 @@ const Account = ({ subscription }: AccountProps) => {
           <div className="col-span-2 font-medium">
             {subscription.plan.nickname}
           </div>
-          <p className="cursor-pointer text-blue-500 hover:underline md:text-right">
-            Change Plan
-          </p>
+          <div>
+            {isLoading ? (
+              <div className="flex justify-end items-center">
+                <AiOutlineLoading3Quarters className="mx-2 transition-all animate-spin" />{" "}
+                Loading
+              </div>
+            ) : (
+              <p
+                onClick={OpenPortal}
+                className="cursor-pointer text-blue-500 hover:underline md:text-right"
+              >
+                Change plan
+              </p>
+            )}
+          </div>
         </div>
         <div className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4  md:border-t md:border-b-0  md:pb-0">
           <h4 className="text-lg text-[gray]">Plan Details</h4>
@@ -90,6 +120,15 @@ export const getServerSideProps: GetServerSideProps<AccountProps> = async ({
   const subscription = await fetch(
     `${API_REQUEST.subscription}/${user_id}`
   ).then((res) => res.json());
+
+  if(!subscription.subscription.data.length) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false
+      }
+    }
+  }
 
   return {
     props: {
