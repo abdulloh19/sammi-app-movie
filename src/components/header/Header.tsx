@@ -25,13 +25,15 @@ const Header = () => {
   return (
     <header className={`${scrolled && "bg-[#141414]"} transition-all`}>
       <div className="flex items-center space-x-2">
-        <Image
-          src={"/logo.svg"}
-          alt={"logo"}
-          width={56}
-          height={56}
-          className="object-contain cursor-pointer"
-        />
+        <Link href={"/"}>
+          <Image
+            src={"/logo.svg"}
+            alt={"logo"}
+            width={56}
+            height={56}
+            className="object-contain cursor-pointer"
+          />
+        </Link>
         <ul className="space-x-4 md:flex hidden">
           <li className="navLink">Home</li>
           <li className="navLink">Movies</li>
