@@ -1,6 +1,8 @@
 import React from "react";
+import { MembershibPlanPorps } from "./MembershipPlanProps";
+import moment from 'moment'
 
-const MembershpPlan = () => {
+const MembershpPlan = ({ subscription }: MembershibPlanPorps) => {
   return (
     <div className='className="mt-6 grid grid-cols-1 gap-x-4 border px-4 py-4 md:grid-cols-4  md:border-t md:border-b-0  md:pb-0"'>
       <div className="space-y-2 py-4">
@@ -12,7 +14,7 @@ const MembershpPlan = () => {
       <div className="col-span-3">
         <div className="flex flex-col justify-between border-b border-white/10  py-4 md:flex-row">
           <div>
-            <p className="font-medium">sammi@gmail.com</p>
+            <p className="font-medium">{subscription.customer.email}</p>
             <p className="text-[gray]">Password: ******</p>
           </div>
           <div className="md:text-right">
@@ -22,7 +24,12 @@ const MembershpPlan = () => {
         </div>
         <div className="flex flex-col justify-between pt-4 pb-4 md:flex-row md:pb-0">
           <div>
-            <p>Your membership plan will end 14 March 2023</p>
+            <p>
+              Your membership plan will end{" "}
+              {moment(subscription.current_period_end * 1000).format(
+                "DD MMM yyyy"
+              )}
+            </p>
           </div>
           <div className="md:text-right">
             <p className={"membershipLink"}>Manage payment info</p>
