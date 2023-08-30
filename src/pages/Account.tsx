@@ -9,11 +9,11 @@ import Link from "next/link";
 import { AiOutlineLoading3Quarters, AiOutlineUser } from "react-icons/ai";
 import { MdOutlineSubscriptions } from "react-icons/md";
 import { useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
+import { UseAuth } from "@/hooks/useAuth";
 
 const Account = ({ subscription }: AccountProps) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { logOut } = useAuth();
+  const { logOut } = UseAuth();
 
   const OpenPortal = async () => {
     setIsLoading(true);

@@ -4,13 +4,13 @@ import Image from "next/image";
 import { useState } from "react";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { useAuth } from "@/hooks/useAuth";
+import { UseAuth } from "@/hooks/useAuth";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { GetServerSideProps } from "next";
 
-const auth = () => {
+const Auth = () => {
   const [auth, setAuth] = useState<"signup" | "signin">("signin");
-  const { signIn, signUp, user, error, isLoading, setIsLoading } = useAuth();
+  const { signIn, signUp, user, error, isLoading, setIsLoading } = UseAuth();
 
   const toggleAuth = (state: "signup" | "signin") => {
     setAuth(state);
@@ -120,7 +120,7 @@ const auth = () => {
   );
 };
 
-export default auth;
+export default Auth;
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const user_id = req.cookies.user_id;

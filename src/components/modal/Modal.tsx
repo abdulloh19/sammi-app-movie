@@ -14,7 +14,6 @@ import { TiTimes } from "react-icons/ti";
 import ReactPlayer from "react-player";
 import { FaPlay, FaPause } from "react-icons/fa";
 import { addDoc, collection } from "firebase/firestore";
-import { useAuth } from "@/hooks/useAuth";
 import { db } from "@/firebase";
 import { AuthContext } from "@/Context/auth.context";
 import { useRouter } from "next/router";

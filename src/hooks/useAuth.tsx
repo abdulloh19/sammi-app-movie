@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { auth } from "src/firebase";
 
-export const useAuth = () => {
+export const UseAuth = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [user, setUser] = useState<User | null>(null);
