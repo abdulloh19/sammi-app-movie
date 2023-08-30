@@ -5,7 +5,6 @@ import { useContext, useEffect, useState } from "react";
 import {
   AiOutlineCloseCircle,
   AiOutlineLike,
-  AiOutlineMinusCircle,
   AiTwotoneLike,
 } from "react-icons/ai";
 import { BiPlus } from "react-icons/bi";
