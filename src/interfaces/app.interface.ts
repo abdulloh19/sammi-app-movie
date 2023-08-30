@@ -54,12 +54,12 @@ export interface Subscription {
   };
 
   customer: {
-    email: string
+    email: string;
     metadata: {
-      user_id: string
-    }
+      user_id: string;
+    };
 
-    invoice_settings:{
+    invoice_settings: {
       default_payment_method: {
         card: {
           brand: string;
@@ -68,7 +68,11 @@ export interface Subscription {
           last4: number;
         };
       };
-    }
-  }
+    };
+  };
 }
 
+export interface MyList {
+  userId: string;
+  product: IMovie;
+}

@@ -3,7 +3,7 @@ import Thumbnail from "../thumbnail/thumbnail";
 import { RowProps } from "./row.props";
 import { BsChevronDoubleRight, BsChevronDoubleLeft } from "react-icons/bs";
 
-const Row = ({ title, movies, isBig = false,  }: RowProps) => {
+const Row = ({ title, movies, isBig = false }: RowProps) => {
   const [moved, setMoved] = useState<boolean>(false);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -25,8 +25,8 @@ const Row = ({ title, movies, isBig = false,  }: RowProps) => {
   };
 
   return (
-    <div className="h-[600px] space-y-1 md:space-y-2">
-      <h1 className="w-56 cursor-pointer text-sm md:text-2xl font-semibold text-[#e5e5e5] hover:text-white transition duration-200">
+    <div className="md:h-[600px] space-y-3 md:space-y-2">
+      <h1 className="w-36 cursor-pointer text-lg md:text-2xl font-semibold text-[#e5e5e5] hover:text-white transition duration-200">
         {title}
       </h1>
 
@@ -48,7 +48,9 @@ const Row = ({ title, movies, isBig = false,  }: RowProps) => {
 
         <div
           ref={carouselRef}
-          className={`flex items-center scrollbar-hide ${!isBig && "space-x-4 md:space-x-6"} overflow-x-scroll `}
+          className={`flex items-center scrollbar-hide ${
+            !isBig && "space-x-4 md:space-x-6"
+          } overflow-x-scroll `}
         >
           {movies.map((movie) => (
             <Thumbnail key={movie.id} movie={movie} isBig={isBig} />

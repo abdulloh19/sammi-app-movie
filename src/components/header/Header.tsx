@@ -5,10 +5,13 @@ import { AiOutlineUser, AiOutlineLogout } from "react-icons/ai";
 import Link from "next/link";
 import { useEffect, useState, useContext } from "react";
 import { AuthContext } from "@/Context/auth.context";
+import NavMenu from "../NavMenu/NavMenu";
+import { useRouter } from "next/router";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const { logOut } = useContext(AuthContext);
+  const router = useRouter()
 
   useEffect(() => {
     const handlerScroll = () => {
@@ -22,6 +25,10 @@ const Header = () => {
 
     return () => removeEventListener("scroll", handlerScroll);
   }, []);
+
+  const Home = () => {
+    router.push('/')
+  }
   return (
     <header className={`${scrolled && "bg-[#141414]"} transition-all`}>
       <div className="flex items-center space-x-2">
@@ -34,8 +41,11 @@ const Header = () => {
             className="object-contain cursor-pointer"
           />
         </Link>
+
+      <NavMenu/>
+
         <ul className="space-x-4 md:flex hidden">
-          <li className="navLink">Home</li>
+          <li onClick={Home} className="navLink">Home</li>
           <li className="navLink">Movies</li>
           <li className="navLink">TV Shows</li>
           <li className="navLink">New</li>

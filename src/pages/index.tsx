@@ -2,8 +2,11 @@ import Head from "next/head";
 import { Header, Hero, Modal, Row, SubscriptionPlan } from "@/components";
 import { GetServerSideProps } from "next";
 import { API_REQUEST } from "@/services/api.service";
-import { IMovie, Product } from "@/interfaces/app.interface";
+import { IMovie, MyList, Product } from "@/interfaces/app.interface";
 import { UseInfoStore } from "src/store";
+import { useEffect, useState } from "react";
+import { getList } from "@/helper/lists";
+import { AuthContext } from "@/Context/auth.context";
 
 export default function Home({
   trending,
@@ -16,14 +19,16 @@ export default function Home({
   history,
   products,
   subscription,
+  list,
 }: HomeProps): JSX.Element {
   const { modal } = UseInfoStore();
+  const [lists, setList] = useState<boolean>(false);
 
   if (!subscription.length) return <SubscriptionPlan products={products} />;
 
   return (
     <div
-      className={`relative min-h-screen ${
+      className={`relative min-h-screen bg-gradient-to-b from=gray-900/70 to-[#010511] ${
         modal && "!h-screen overflow-hidden"
       }`}
     >
@@ -39,6 +44,8 @@ export default function Home({
         <Hero trending={trending} />
         <section>
           <Row title="Top-rated" movies={topRated} />
+
+          {list.length ? <Row title="My List" movies={list} /> : null}
 
           <Row title="Tv Show" movies={tvTopRated} isBig={false} />
 
@@ -60,7 +67,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
   const user_id = req.cookies.user_id;
   if (!user_id) {
     return {
-      redirect: { destination: "/auth" , permanent: false},
+      redirect: { destination: "/auth", permanent: false },
     };
   }
   const [
@@ -87,6 +94,8 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
     fetch(`${API_REQUEST.subscription}/${user_id}`).then((res) => res.json()),
   ]);
 
+  const myList: MyList[] = await getList(user_id);
+
   return {
     props: {
       trending: trending.results,
@@ -99,6 +108,7 @@ export const getServerSideProps: GetServerSideProps<HomeProps> = async ({
       history: history.results,
       products: products.products.data,
       subscription: subscription.subscription.data,
+      list: myList.map((c) => c.product),
     },
   };
 };
@@ -114,4 +124,5 @@ interface HomeProps {
   history: IMovie[];
   products: Product[];
   subscription: string[];
+  list: IMovie[];
 }
