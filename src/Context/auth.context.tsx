@@ -1,5 +1,6 @@
 import Spinner from "@/components/header/spinner";
 import { auth } from "@/firebase";
+import { UseAuth } from "@/hooks/useAuth";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
@@ -32,7 +33,7 @@ const AuthContextProvider = ({ children }: { children: ReactNode }) => {
     isLoading,
     setUser,
     setIsLoading,
-  } = useAuth();
+  } = UseAuth();
   const value = useMemo(
     () => ({
       signIn,
