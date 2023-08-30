@@ -1,6 +1,5 @@
 import Spinner from "@/components/header/spinner";
 import { auth } from "@/firebase";
-import { useAuth } from "@/hooks/useAuth";
 import { User, onAuthStateChanged } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
