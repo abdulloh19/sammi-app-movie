@@ -1,11 +1,11 @@
-import { useAuth } from "@/hooks/useAuth";
+import { UseAuth } from "@/hooks/useAuth";
 import Image from "next/image";
 import { AiOutlineLogout } from "react-icons/ai";
 import { SubscriptionPlanProps } from "./Subscription-plan.props";
 import PlanCard from "../planCard/PlanCard";
 
 const SubscriptionPlan = ({ products }: SubscriptionPlanProps) => {
-  const { logOut } = useAuth();
+  const { logOut } = UseAuth();
   return (
     <div className=" min-h-screen">
       <div className="border-b-2 border-gray-300/20 h-[10vh] flex justify-between items-center px-4 md:px-10 py-2">
